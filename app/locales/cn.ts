@@ -1,6 +1,5 @@
 import { getClientConfig } from "../config/client";
 import { SubmitKey } from "../store/config";
-import { SAAS_CHAT_UTM_URL } from "@/app/constant";
 
 const isApp = !!getClientConfig()?.isApp;
 
@@ -8,14 +7,8 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized: isApp
-      ? `😆 对话遇到了一些问题，不用慌:
-       \\ 1️⃣ 想要零配置开箱即用，[点击这里立刻开启对话 🚀](${SAAS_CHAT_UTM_URL})
-       \\ 2️⃣ 如果你想消耗自己的 OpenAI 资源，点击[这里](/#/settings)修改设置 ⚙️`
-      : `😆 对话遇到了一些问题，不用慌:
-       \ 1️⃣ 想要零配置开箱即用，[点击这里立刻开启对话 🚀](${SAAS_CHAT_UTM_URL})
-       \ 2️⃣ 如果你正在使用私有部署版本，点击[这里](/#/auth)输入访问秘钥 🔑
-       \ 3️⃣ 如果你想消耗自己的 OpenAI 资源，点击[这里](/#/settings)修改设置 ⚙️
-       `,
+      ? "抱歉，验证失败。请检查你的API密钥或访问密码是否正确。"
+      : "抱歉，验证失败。请检查你的API密钥或访问密码是否正确。",
   },
   Auth: {
     Return: "返回",
@@ -25,9 +18,8 @@ const cn = {
     Input: "在此处填写访问码",
     Confirm: "确认",
     Later: "稍后再说",
-    SaasTips: "配置太麻烦，想要立即使用",
-    TopTips:
-      "🥳 NextChat AI 首发优惠，立刻解锁 OpenAI o1, GPT-4o, Claude-3.5 等最新大模型",
+    SaasTips: "开始使用冻鱼的公益站",
+    TopTips: "🥳 欢迎使用冻鱼的公益站，让AI助手触手可及",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
@@ -609,8 +601,8 @@ const cn = {
     },
   },
   Store: {
-    DefaultTopic: "新的聊天",
-    BotHello: "有什么可以帮你的吗",
+    DefaultTopic: "冻鱼的公益站新的聊天",
+    BotHello: "🥳 欢迎使用冻鱼的公益站，让AI助手触手可及",
     Error: "出错了，稍后重试吧",
     Prompt: {
       History: (content: string) => "这是历史聊天总结作为前情提要：" + content,

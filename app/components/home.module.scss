@@ -342,6 +342,13 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  
+  .loading-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+    color: var(--primary);
+  }
 }
 
 .rtl-screen {

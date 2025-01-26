@@ -37,6 +37,10 @@ import { collectModelsWithDefaultModel } from "../utils/model";
 import { createEmptyMask, Mask } from "./mask";
 import { executeMcpAction, getAllTools } from "../mcp/actions";
 import { extractMcpJson, isMcpJson } from "../mcp/utils";
+import {
+  isDeepseekReasoner,
+  resetDeepseekReasonerState,
+} from "../client/platforms/deepseek-reasoner";
 
 const localStorage = safeLocalStorage();
 
@@ -245,7 +249,7 @@ export const useChatStore = createPersistStore(
 
         newSession.topic = currentSession.topic;
         // 深拷贝消息
-        newSession.messages = currentSession.messages.map(msg => ({
+        newSession.messages = currentSession.messages.map((msg) => ({
           ...msg,
           id: nanoid(), // 生成新的消息 ID
         }));
@@ -408,6 +412,11 @@ export const useChatStore = createPersistStore(
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
 
+        // 如果是 deepseek-reasoner，重置状态
+        if (isDeepseekReasoner(modelConfig.model)) {
+          resetDeepseekReasonerState();
+        }
+
         // MCP Response no need to fill template
         let mContent: string | MultimodalContent[] = isMcpResponse
           ? content
@@ -554,29 +563,29 @@ export const useChatStore = createPersistStore(
         const mcpSystemPrompt = await getMcpSystemPrompt();
 
         var systemPrompts: ChatMessage[] = [];
-        systemPrompts = shouldInjectSystemPrompts
-          ? [
-              createMessage({
-                role: "system",
-                content:
-                  fillTemplateWith("", {
-                    ...modelConfig,
-                    template: DEFAULT_SYSTEM_TEMPLATE,
-                  }) + mcpSystemPrompt,
-              }),
-            ]
-          : [
-              createMessage({
-                role: "system",
-                content: mcpSystemPrompt,
-              }),
-            ];
-        if (shouldInjectSystemPrompts) {
-          console.log(
-            "[Global System Prompt] ",
-            systemPrompts.at(0)?.content ?? "empty",
-          );
+        // 如果是 deepseek-reasoner，不添加任何系统提示词
+        if (session.mask.modelConfig.model === "deepseek-reasoner") {
+          systemPrompts = [];
+        } else {
+          systemPrompts = shouldInjectSystemPrompts
+            ? [
+                createMessage({
+                  role: "system",
+                  content:
+                    fillTemplateWith("", {
+                      ...modelConfig,
+                      template: DEFAULT_SYSTEM_TEMPLATE,
+                    }) + mcpSystemPrompt,
+                }),
+              ]
+            : [
+                createMessage({
+                  role: "system",
+                  content: mcpSystemPrompt,
+                }),
+              ];
         }
+
         const memoryPrompt = get().getMemoryPrompt();
         // long term memory
         const shouldSendLongTermMemory =
@@ -591,7 +600,7 @@ export const useChatStore = createPersistStore(
         // short term memory
         const shortTermMemoryStartIndex = Math.max(
           0,
-          totalMessageCount - modelConfig.historyMessageCount,
+          messages.length - modelConfig.historyMessageCount,
         );
 
         // lets concat send messages, including 4 parts:

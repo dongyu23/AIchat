@@ -267,6 +267,22 @@ Latex inline: \\(x^2\\)
 Latex block: $$e=mc^2$$
 `;
 
+export const DEEPSEEK_REASONER_SYSTEM_TEMPLATE = `
+You are DeepSeek Reasoner, a large language model trained by DeepSeek，You always speak Chinese.
+Knowledge cutoff: {{cutoff}}
+Current model: {{model}}
+Current time: {{time}}
+
+You are designed to think step by step and show your reasoning process.
+When answering questions:
+1. First, use reasoning_content to show your step-by-step thinking process
+2. Then, provide your final answer in content
+3. Always be logical and thorough in your analysis
+
+Latex inline: \\(x^2\\) 
+Latex block: $$e=mc^2$$
+`;
+
 export const MCP_TOOLS_TEMPLATE = `
 [clientId]
 {{ clientId }}
@@ -448,138 +464,30 @@ export const VISION_MODEL_REGEXES = [
 
 export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];
 
-const openaiModels = [
-  "gpt-3.5-turbo",
-  "gpt-3.5-turbo-1106",
-  "gpt-3.5-turbo-0125",
-  "gpt-4",
-  "gpt-4-0613",
-  "gpt-4-32k",
-  "gpt-4-32k-0613",
-  "gpt-4-turbo",
-  "gpt-4-turbo-preview",
-  "gpt-4o",
-  "gpt-4o-2024-05-13",
-  "gpt-4o-2024-08-06",
-  "gpt-4o-2024-11-20",
-  "chatgpt-4o-latest",
-  "gpt-4o-mini",
-  "gpt-4o-mini-2024-07-18",
-  "gpt-4-vision-preview",
-  "gpt-4-turbo-2024-04-09",
-  "gpt-4-1106-preview",
-  "dall-e-3",
-  "o1-mini",
-  "o1-preview",
-];
+const openaiModels = [""];
 
-const googleModels = [
-  "gemini-1.0-pro", // Deprecated on 2/15/2025
-  "gemini-1.5-pro-latest",
-  "gemini-1.5-pro",
-  "gemini-1.5-pro-002",
-  "gemini-1.5-pro-exp-0827",
-  "gemini-1.5-flash-latest",
-  "gemini-1.5-flash-8b-latest",
-  "gemini-1.5-flash",
-  "gemini-1.5-flash-8b",
-  "gemini-1.5-flash-002",
-  "gemini-1.5-flash-exp-0827",
-  "learnlm-1.5-pro-experimental",
-  "gemini-exp-1114",
-  "gemini-exp-1121",
-  "gemini-exp-1206",
-  "gemini-2.0-flash-exp",
-  "gemini-2.0-flash-thinking-exp-1219",
-];
+const googleModels = [""];
 
-const anthropicModels = [
-  "claude-instant-1.2",
-  "claude-2.0",
-  "claude-2.1",
-  "claude-3-sonnet-20240229",
-  "claude-3-opus-20240229",
-  "claude-3-opus-latest",
-  "claude-3-haiku-20240307",
-  "claude-3-5-haiku-20241022",
-  "claude-3-5-haiku-latest",
-  "claude-3-5-sonnet-20240620",
-  "claude-3-5-sonnet-20241022",
-  "claude-3-5-sonnet-latest",
-];
+const anthropicModels = [""];
 
-const baiduModels = [
-  "ernie-4.0-turbo-8k",
-  "ernie-4.0-8k",
-  "ernie-4.0-8k-preview",
-  "ernie-4.0-8k-preview-0518",
-  "ernie-4.0-8k-latest",
-  "ernie-3.5-8k",
-  "ernie-3.5-8k-0205",
-  "ernie-speed-128k",
-  "ernie-speed-8k",
-  "ernie-lite-8k",
-  "ernie-tiny-8k",
-];
+const baiduModels = [""];
 
-const bytedanceModels = [
-  "Doubao-lite-4k",
-  "Doubao-lite-32k",
-  "Doubao-lite-128k",
-  "Doubao-pro-4k",
-  "Doubao-pro-32k",
-  "Doubao-pro-128k",
-];
+const bytedanceModels = [""];
 
-const alibabaModes = [
-  "qwen-turbo",
-  "qwen-plus",
-  "qwen-max",
-  "qwen-max-0428",
-  "qwen-max-0403",
-  "qwen-max-0107",
-  "qwen-max-longcontext",
-];
+const alibabaModes = [""];
 
-const tencentModels = [
-  "hunyuan-pro",
-  "hunyuan-standard",
-  "hunyuan-lite",
-  "hunyuan-role",
-  "hunyuan-functioncall",
-  "hunyuan-code",
-  "hunyuan-vision",
-];
+const tencentModels = [""];
 
-const moonshotModes = ["moonshot-v1-8k", "moonshot-v1-32k", "moonshot-v1-128k"];
+const moonshotModes = [""];
 
-const iflytekModels = [
-  "general",
-  "generalv3",
-  "pro-128k",
-  "generalv3.5",
-  "4.0Ultra",
-];
+const iflytekModels = [""];
 
-const deepseekModels = ["deepseek-chat", "deepseek-coder"];
+const deepseekModels = ["deepseek-chat", "deepseek-reasoner"];
 
-const xAIModes = ["grok-beta"];
+const xAIModes = [""];
 
 const chatglmModels = [
-  "glm-4-plus",
-  "glm-4-0520",
-  "glm-4",
-  "glm-4-air",
-  "glm-4-airx",
-  "glm-4-long",
-  "glm-4-flashx",
-  "glm-4-flash",
-  "glm-4v-plus",
-  "glm-4v",
-  "glm-4v-flash", // free
-  "cogview-3-plus",
-  "cogview-3",
-  "cogview-3-flash", // free
+  "", // free
   // 目前无法适配轮询任务
   //   "cogvideox",
   //   "cogvideox-flash", // free

@@ -35,6 +35,7 @@ export function Loading(props: { noLogo?: boolean }) {
   return (
     <div className={clsx("no-dark", styles["loading-content"])}>
       {!props.noLogo && <BotIcon />}
+      <div className={styles["loading-title"]}>冻鱼的公益站</div>
       <LoadingIcon />
     </div>
   );
