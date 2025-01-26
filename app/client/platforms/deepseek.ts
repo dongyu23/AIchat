@@ -159,10 +159,7 @@ export class DeepSeekApi implements LLMApi {
                     arguments: args,
                   },
                 });
-              } else if (
-                runTools[index]?.function !== undefined &&
-                runTools[index].function.arguments !== undefined
-              ) {
+              } else if (runTools[index]?.function?.arguments !== undefined) {
                 runTools[index]!.function!.arguments += args;
               }
             }
