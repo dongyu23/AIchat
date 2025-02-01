@@ -28,7 +28,7 @@ export const TENCENT_BASE_URL = "https://hunyuan.tencentcloudapi.com";
 export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
 export const IFLYTEK_BASE_URL = "https://spark-api-open.xf-yun.com";
 
-export const DEEPSEEK_BASE_URL = "https://api.deepseek.com";
+export const DEEPSEEK_BASE_URL = "https://api.siliconflow.cn";
 
 export const XAI_BASE_URL = "https://api.x.ai";
 
@@ -350,7 +350,7 @@ You are an AI assistant with access to system tools. Your role is to help users 
        "arguments": {}
      }
    }
-   \`\`\`"
+   \`\`\`
 
 
   \`\`\`json:mcp-response:filesystem
@@ -482,7 +482,7 @@ const moonshotModes = [""];
 
 const iflytekModels = [""];
 
-const deepseekModels = ["deepseek-chat", "deepseek-reasoner"];
+const deepseekModels = ["deepseek-ai/DeepSeek-V3", "deepseek-ai/DeepSeek-R1"];
 
 const xAIModes = [""];
 
